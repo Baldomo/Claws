@@ -23,7 +23,6 @@ class WsWrapper {
 
     async send(resultData) {
         if (this.shouldSend(resultData)) {
-            
             // Commenting this out until we get a better workflow for retrieving file data consistently
             // await this.setFileInfo(resultData);
             try {
