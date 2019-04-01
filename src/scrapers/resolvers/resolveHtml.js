@@ -31,7 +31,7 @@ async function resolveHtml(html, resolver, headers, cookie) {
     if (HtmlResolvers[resolver]) {
         const resolverFunction = resolverFunctions[resolver];
         const htmlResolver = new HtmlResolvers[resolver](resolverFunction, resolver);
-        return htmlResolver.resolve(html, jar, cookie);
+        return htmlResolver.resolve(html, jar, headers, cookie);
     } else {
         throw `Resolver ${resolver} not supported`;
     }

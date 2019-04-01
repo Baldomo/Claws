@@ -11,21 +11,22 @@ const HtmlResolver = class HtmlResolver {
         this.headers = headers;
         this.cookie = cookie;
         console.log(html)
-        this.resolvedData = await this.resolverFunction(html, jar, headers);
+        this.data = await this.resolverFunction(html, jar, headers);
         const videoLinks = this.getUrl();
 
-        return this.createWsEvent(createWsEvent);
+        return this.createWsEvent(videoLinks);
     }
 
     createWsEvent(dataObjects) {
+        console.log(dataObjects)
         return dataObjects.map((data) => {
-            return createEvent(data, false, {}, { quality: '', resolver: this.resolverName, cookie, isResultOfScrape: true })
+            return createEvent(data, false, {}, { quality: '', source: this.resolverName, cookie: this.cookie, isResultOfScrape: true })
         })
     }
 
 }
 
-const OpenLoad = class OpenLoad extends HtmlResolver {
+const Openload = class OpenLoad extends HtmlResolver {
     getUrl() {
         return [this.data];
     }
@@ -74,7 +75,7 @@ const GoogleDrive = class GoogleDrive extends HtmlResolver {
 }
 
 module.exports = {
-    OpenLoad,
+    Openload,
     Streamango,
     VShare,
     GamoVideo,
