@@ -26,12 +26,13 @@ const resolverFunctions = {
 
 const createEvent = require('../../utils/createEvent');
 
-async function resolveHtml(html, resolver, headers, cookie) {
+async function resolveHtml(data) {
+    const resolver = data.resolver;
     const jar = rp.jar();
     if (HtmlResolvers[resolver]) {
         const resolverFunction = resolverFunctions[resolver];
         const htmlResolver = new HtmlResolvers[resolver](resolverFunction, resolver);
-        return htmlResolver.resolve(html, jar, headers, cookie);
+        return htmlResolver.resolve(data, jar);
     } else {
         throw `Resolver ${resolver} not supported`;
     }

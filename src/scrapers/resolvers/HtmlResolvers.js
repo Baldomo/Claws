@@ -7,11 +7,10 @@ const HtmlResolver = class HtmlResolver {
         this.resolverName = name;
     }
 
-    async resolve(html, jar, headers, cookie) {
-        this.headers = headers;
-        this.cookie = cookie;
-        console.log(html)
-        this.data = await this.resolverFunction(html, jar, headers);
+    async resolve(eventData, jar) {
+        this.event = eventData;
+        const html = Buffer.from(this.event.html, 'base64').toString();
+        this.data = await this.resolverFunction(html, jar, this.event.headers);
         const videoLinks = this.getUrl();
 
         return this.createWsEvent(videoLinks);
@@ -20,7 +19,7 @@ const HtmlResolver = class HtmlResolver {
     createWsEvent(dataObjects) {
         console.log(dataObjects)
         return dataObjects.map((data) => {
-            return createEvent(data, false, {}, { quality: '', source: this.resolverName, cookie: this.cookie, isResultOfScrape: true })
+            return createEvent(data, false, {}, { quality: '', provider: this.event.provider, source: this.resolverName, cookie: this.event.cookie, isResultOfScrape: true })
         })
     }
 

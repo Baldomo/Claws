@@ -104,7 +104,7 @@ wss.on('connection', async (ws, req) => {
 
         if (data.type == 'resolveHtml') {
             try {
-                const results = await resolveHtml(Buffer.from(data.html, 'base64').toString(), data.resolver, data.headers, data.cookie);
+                const results = await resolveHtml(data);
                 ws.send(JSON.stringify({event: 'scrapeResults', results}));
             } catch(err) {
                 ws.send(`{"event": "scrapeResults", "error": "${(err.message || err.toString()).substring(0, 100) + '...'}"}`);
