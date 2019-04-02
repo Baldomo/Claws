@@ -32,7 +32,7 @@ const resolveLinks = async (data, ws, req) => {
     if (type === 'resolveHtml') {
         try {
             const results = await resolveHtml(data);
-            await wsWrapper.send(results)
+            await wsWrapper.send({ event: 'scrapeResults', results })
         } catch (err) {
             ws.send(`{"event": "scrapeResults", "error": "${(err.message || err.toString()).substring(0, 100) + '...'}"}`);
             logger.error(err);

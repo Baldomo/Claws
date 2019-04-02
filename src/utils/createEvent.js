@@ -1,6 +1,6 @@
 const URL = require('url');
 
-function createEvent(data, ipLocked, pairing, {quality, provider, source, isResultOfScrape = false, cookieRequired = '', cookie = ''}, headers) {
+function createEvent(data, ipLocked, pairing, { quality, provider, source, isResultOfScrape = false, cookieRequired = '', cookie = '' }, headers) {
     if (ipLocked) {
         return {
             event: 'scrape',
@@ -10,23 +10,6 @@ function createEvent(data, ipLocked, pairing, {quality, provider, source, isResu
             resolver: source,
             cookieRequired
         }
-    }
-
-    if (isResultOfScrape) {
-        return {
-            event: 'scrapeResults',
-            file: {
-                data,
-            },
-            isResultOfScrape,
-            metadata: {
-                quality,
-                provider,
-                source,
-                cookie
-            },
-            headers
-        };
     }
 
     return {
