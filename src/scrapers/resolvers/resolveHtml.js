@@ -31,7 +31,7 @@ async function resolveHtml(data) {
     const jar = rp.jar();
     if (HtmlResolvers[resolver]) {
         const resolverFunction = resolverFunctions[resolver];
-        const htmlResolver = new HtmlResolvers[resolver](resolverFunction, resolver);
+        const htmlResolver = new HtmlResolvers[resolver](resolverFunction);
         return htmlResolver.resolve(data, jar);
     } else {
         throw `Resolver ${resolver} not supported`;

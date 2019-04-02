@@ -4,7 +4,6 @@ const createEvent = require('../../utils/createEvent');
 const HtmlResolver = class HtmlResolver {
     constructor(resolver, name) {
         this.resolverFunction = resolver;
-        this.resolverName = name;
     }
 
     async resolve(eventData, jar) {
@@ -19,7 +18,7 @@ const HtmlResolver = class HtmlResolver {
     createWsEvent(dataObjects) {
         console.log(dataObjects)
         return dataObjects.map((data) => {
-            return createEvent(data, false, {}, { quality: '', provider: this.event.provider, source: this.resolverName, cookie: this.event.cookie, isResultOfScrape: true })
+            return createEvent(data, false, {}, { provider: this.event.provider, source: this.event.resolver, cookie: this.event.cookie, isResultOfScrape: true })
         })
     }
 
