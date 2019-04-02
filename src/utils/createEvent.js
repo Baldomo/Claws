@@ -12,6 +12,23 @@ function createEvent(data, ipLocked, pairing, {quality, provider, source, isResu
         }
     }
 
+    if (isResultOfScrape) {
+        return {
+            event: 'scrapeResults',
+            file: {
+                data,
+            },
+            isResultOfScrape,
+            metadata: {
+                quality,
+                provider,
+                source,
+                cookie
+            },
+            headers
+        };
+    }
+
     return {
         event: 'result',
         file: {
